@@ -46,7 +46,7 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/web_scraper", { useNewUrlParser: true });
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log("App running on port 3000!");
 });
 

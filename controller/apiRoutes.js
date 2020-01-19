@@ -23,9 +23,10 @@ router.get("/scrape", function(req, res) {
     $("article.css-8atqhb").each(function(i, element) {
       // Save an empty result object
       var result = {};
-        
+      //console.log(element)
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(element)
+      
       .children("h2.css-7a6cj6 esl82me0")
       //.children("a")
       .text().trim();

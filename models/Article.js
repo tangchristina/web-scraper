@@ -15,19 +15,6 @@ var ArticleSchema = new Schema({
     required: true,
     unique: true
   },
-
-  summary: {
-    type: String,
-    required: false,
-    unique: false
-  },
-
-  byline: {
-    type: String,
-    required: false,
-    unique: false
-  },
-
   isSaved: {
     type: Boolean,
     default: false,

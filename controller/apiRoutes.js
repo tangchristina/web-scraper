@@ -5,6 +5,7 @@ var db = require("../models");
 var cheerio = require("cheerio");
 var axios = require("axios");
 
+
 // Routes
 // Main route (simple Hello World Message)
 router.get("/", function(req, res) {
@@ -17,53 +18,61 @@ router.get("/scrape", function(req, res) {
   axios.get("http://www.nytimes.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-
+   
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article").each(function(i, element) {
+    $("article.css-8atqhb").each(function(i, element) {
       // Save an empty result object
       var result = {};
-
+        
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(element)
-      .children(".story-heading")
-      .children("a")
+      .children("h2.css-7a6cj6 esl82me0")
+      //.children("a")
       .text().trim();
       result.link = $(element)
-      .children(".story-heading")
-      .children("a'")
+      .children("a")
       .attr("href");
 
+      if (result.title && result.link){
+        console.log(result.title);
       // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
-        })
-        .catch(function(err) {
-          // If an error occurred, log it
-          console.log(err);
-        });
+        db.Article.create(result)
+            .then(function(dbArticle) {
+                // View the added result in the console
+ 
+                console.log(dbArticle);
+                })
+                .catch(function(err) {
+                // If an error occurred, log it
+                console.log(err);
+                });
+        };        
     });
+    res.redirect("/")
 
-    // Send a message to the client
-    res.send("Scrape Complete");
+
   });
+  
 });
 
-// Route for getting all Articles from the db
-router.get("/articles", function(req, res) {
-  // TODO: Finish the route so it grabs all of the articles
-  db.Article.find({}, function(error, found) {
-    // Log any errors if the server encounters one
-    if (error) {
-      console.log(error);
-    }
-    // Otherwise, send the result of this query to the browser
-    else {
-      res.json(found);
-    }
-  });
+router.get("/", (req, res) => {
+    db.Article.find({})
+        .then(function (dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            const retrievedArticles = dbArticle;
+            let hbsObject;
+            hbsObject = {
+                articles: dbArticle
+            };
+            res.render("index", hbsObject);        
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
 });
+
+
 
 router.get("/saved", (req, res) => {
     db.Article.find({isSaved: true})
@@ -74,6 +83,20 @@ router.get("/saved", (req, res) => {
                 articles: retrievedArticles
             };
             res.render("saved", hbsObject);
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
+
+// Route for getting all Articles from the db
+router.get("/articles", function (req, res) {
+    // Grab every document in the Articles collection
+    db.Article.find({})
+        .then(function (dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbArticle);
         })
         .catch(function (err) {
             // If an error occurred, send it to the client

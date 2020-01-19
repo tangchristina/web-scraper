@@ -16,14 +16,14 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 //Set up default port
-var PORT = process.env.PORT ||3000;
+  var PORT = process.env.PORT ||3000;
 
 // Initialize Express
 var app = express();
 var db = require("./models");
 
 // Controllers
-const router = require("./controller/app.js");
+const router = require("./controller/apiRoutes.js");
 app.use(router);
 
 // Set Handlebars.
@@ -43,11 +43,11 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/web_scraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/nyt_scraper", { useNewUrlParser: true });
 
 // Listen on port 3000
 app.listen(PORT, function() {
-  console.log("App running on port 3000!");
+  console.log("App now listening at localhost:" + PORT);
 });
 
 

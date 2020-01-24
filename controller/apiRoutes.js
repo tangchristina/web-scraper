@@ -7,28 +7,22 @@ var axios = require("axios");
 
 
 // Routes
-// Main route (simple Hello World Message)
-router.get("/", function(req, res) {
-    //res.render("index", hbsObject);
-    res.render("index");
-});
 // A GET route for scraping the New York Times website
 router.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("http://www.nytimes.com/").then(function(response) {
+  axios.get("http://www.theverge.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
    
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article.css-8atqhb").each(function(i, element) {
+    $(".c-entry-box--compact__title").each(function(i, element) {
+      console.log(element);
       // Save an empty result object
       var result = {};
       //console.log(element)
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(element)
-      
-      .children("h2.css-7a6cj6 esl82me0")
-      //.children("a")
+      .children("a")
       .text().trim();
       result.link = $(element)
       .children("a")
@@ -60,7 +54,7 @@ router.get("/", (req, res) => {
     db.Article.find({})
         .then(function (dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
-            const retrievedArticles = dbArticle;
+            const scrapedArticles = dbArticle;
             let hbsObject;
             hbsObject = {
                 articles: dbArticle
@@ -77,11 +71,11 @@ router.get("/", (req, res) => {
 
 router.get("/saved", (req, res) => {
     db.Article.find({isSaved: true})
-        .then(function (retrievedArticles) {
+        .then(function (scrapedArticles) {
             // If we were able to successfully find Articles, send them back to the client
             let hbsObject;
             hbsObject = {
-                articles: retrievedArticles
+                articles: scrapedArticles
             };
             res.render("saved", hbsObject);
         })

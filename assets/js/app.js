@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    console.log("app.js is linked");
     // event handler for deleting a note
     $(".delete-btn").click(function (event) {
         event.preventDefault();

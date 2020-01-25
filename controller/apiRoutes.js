@@ -27,6 +27,7 @@ router.get("/scrape", function(req, res) {
       result.link = $(element)
       .children("a")
       .attr("href");
+      
 
       if (result.title && result.link){
         console.log(result.title);

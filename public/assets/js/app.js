@@ -68,16 +68,16 @@ $(document).ready(function () {
         $('#note-modal').modal('toggle');
     });
 
-    $(".save-btn").click(function(event) {
-        event.preventDefault();
+    $(".save-btn").on("click", function(event) {
         var id = $(this).data("id");
-
-        $.ajax('/saved/' + id, {
-            type: "PUT",
-            data: { isSaved: true }
+    
+        // Send the PUT request.
+        $.ajax("/saved/" + id, {
+          type: "PUT",
+          data: { isSaved: true }
         }).then(function() {
-            alert("Article saved!")
-        
+          // Reload the page to get the updated list
+          location.reload();
         });
-    });
+      });
 });

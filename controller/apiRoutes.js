@@ -87,18 +87,18 @@ router.get("/saved", (req, res) => {
 });
 
 // Route for getting all Articles from the db
-router.get("/articles", function (req, res) {
-    // Grab every document in the Articles collection
-    db.Article.find({})
-        .then(function (dbArticle) {
-            // If we were able to successfully find Articles, send them back to the client
-            res.json(dbArticle);
-        })
-        .catch(function (err) {
-            // If an error occurred, send it to the client
-            res.json(err);
-        });
-});
+// router.get("/articles", function (req, res) {
+//     // Grab every document in the Articles collection
+//     db.Article.find({})
+//         .then(function (dbArticle) {
+//             // If we were able to successfully find Articles, send them back to the client
+//             res.json(dbArticle);
+//         })
+//         .catch(function (err) {
+//             // If an error occurred, send it to the client
+//             res.json(err);
+//         });
+// });
 
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/saved/:id", function(req, res) {

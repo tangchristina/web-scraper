@@ -9,13 +9,13 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/saved">Saved Articles</a>
+        <a class="nav-link active" href="/saved">Saved Articles</a>
       </li>
       <li class="nav-item">
         <a class="btn btn-danger" href="/scrape">SCRAPE NEW ARTICLES!</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-danger clear">CLEAR ARTICLES!</a>
+        <a class="btn btn-danger clear-article">CLEAR ARTICLES!</a>
       </li>
     </ul>
   </div>
@@ -30,19 +30,19 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="article-row">
         <div class="col-12">
             {{#if articles}}
             {{#each articles}}
                 <div class="card w-90">
-                    <div class="card-header text-white bg-primary">
+                    <div class="card-header text-white bg-danger">
                         <a href={{link}} target="_blank" class="text-white">
                             <h2>{{title}}</h2>
                   
                         </a>
                     </div>
                     <div class="card-body">
-                        <button id="{{_id}}" class="btn btn-primary save-btn">Save Article</button>
+                        <button id="{{_id}}" class="btn-outline-dark save-btn">Save Article</button>
                     </div>
                 </div>
             {{/each}}

@@ -15,7 +15,7 @@
         <a class="btn btn-danger scrape-new" href="/scrape">SCRAPE NEW ARTICLES!</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-danger clear">CLEAR ARTICLES!</a>
+        <a class="btn btn-danger clear-article">CLEAR ARTICLES!</a>
       </li>
     </ul>
   </div>
@@ -29,19 +29,19 @@
                 </div>
             </div>
         </div>
-    <div class=row>
+    <div class="article-row">
         <div class="col-12">
             {{#each articles}}
                 <div class="card w-90">
                     <div class="card-header text-white bg-primary">
-                        <a href={{link}} target="_blank" class="text-white">
-                            <h2>{{title}}</h2>
+                        <a href={{this.link}} target="_blank" class="text-white">
+                            <h2>{{this.title}}</h2>
                         </a>
                     </div>
                     <div class="card-body">
                         
-                        <button data="{{_id}}" class="btn btn-info note-btn">Article Notes</button>
-                        <button data="{{_id}}" class="btn btn-danger delete-btn">Delete From Saved</button>
+                        <button data="{{this._id}}" class="btn btn-info note-btn">Article Notes</button>
+                        <button data="{{this._id}}" class="btn btn-danger delete-btn">Delete From Saved</button>
                     </div>
                 </div>
             {{/each}}

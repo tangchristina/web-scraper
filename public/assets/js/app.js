@@ -10,6 +10,12 @@ $(document).ready(function () {
             location.reload();
         })
     });
+
+    $(".clear-article").click(function (event) {
+        event.preventDefault();
+        $(".article-row").empty();
+        });
+
     
     // event handler for opening the note modal
     $(".note-btn").click(function (event) {
@@ -64,10 +70,11 @@ $(document).ready(function () {
 
     $(".save-btn").click(function(event) {
         event.preventDefault();
-        const button = $(this);
-        const id = button.attr("id");
-        $.ajax(`/save/${id}`, {
-            type: "PUT"
+        var id = $(this).data("id");
+
+        $.ajax('/saved/' + id, {
+            type: "PUT",
+            data: { isSaved: true }
         }).then(function() {
             const alert = `
             <div class="alert alert-warning alert-dismissible fade show" role="alert">

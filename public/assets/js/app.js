@@ -16,6 +16,14 @@ $(document).ready(function () {
         $(".article-row").empty();
         });
 
+    $(document).on('click', '.saved-articles', (req, res) => {
+            $.ajax({
+                url: '/saved',
+                method: 'GET'
+            }).then((response) => window.location.replace('/saved'))
+            .catch(error => console.log(error));
+          })
+
     
     // event handler for opening the note modal
     $(".note-btn").click(function (event) {

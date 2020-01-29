@@ -45,7 +45,12 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://127.0.0.1/nyt_scraper", { useNewUrlParser: true });
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nyt_scraper";
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (error) => {
+	if (!error) {console.log("Connected!");}
+	else (console.log('mongoose error: ' + error));
+});
 
 // Listen on port 3000
 app.listen(PORT, function() {

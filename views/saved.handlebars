@@ -32,8 +32,9 @@
     <div class="article-row">
         <div class="col-12">
             {{#each articles}}
+                {{#if this.isSaved}}
                 <div class="card w-90">
-                    <div class="card-header text-white bg-primary">
+                    <div class="card-header text-white bg-danger">
                         <a href={{this.link}} target="_blank" class="text-white">
                             <h2>{{this.title}}</h2>
                         </a>
@@ -41,9 +42,10 @@
                     <div class="card-body">
                         
                         <button data="{{this._id}}" class="btn btn-info note-btn">Article Notes</button>
-                        <button data="{{this._id}}" class="btn btn-danger delete-btn">Delete From Saved</button>
+                        <button data="{{this._id}}" class="btn btn-warning delete-btn">Delete From Saved</button>
                     </div>
                 </div>
+                {{/if}}
             {{/each}}
         </div>
     </div>

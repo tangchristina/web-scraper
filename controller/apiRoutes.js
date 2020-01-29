@@ -99,6 +99,18 @@ router.get("/saved", (req, res) => {
 //             res.json(err);
 //         });
 // });
+router.put("/saved/:id", (req, res) => {
+  db.Article.update(
+      {_id: req.params.id},
+      {isSaved: true}
+  )
+  .then((result) => {
+      res.json(result);
+  })
+  .catch((error) => {
+      res.json(error);
+  });
+});
 
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/saved/:id", function(req, res) {

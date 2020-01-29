@@ -76,14 +76,15 @@ $(document).ready(function () {
         $('#note-modal').modal('toggle');
     });
 
-    $(".save-btn").on("click", function(event) {
+    $(".save-btn").on("click", function() {
         var id = $(this).data("id");
-    
+    console.log(id);
         // Send the PUT request.
         $.ajax("/saved/" + id, {
           type: "PUT",
-          data: { isSaved: true }
+          data: { isSaved: {$get:true} }
         }).then(function() {
+            $().alert('close')
           // Reload the page to get the updated list
           location.reload();
         });

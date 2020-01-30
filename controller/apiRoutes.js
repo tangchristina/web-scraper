@@ -157,4 +157,17 @@ router.post("/saved/:id", function(req, res) {
  })
  });
 
+ //Route that handles deleting a saved article
+ router.delete("/remove/:id", function(req, res) {
+ 
+  db.Article.remove({ _id: req.params.id
+  }).then(function(dbArticle)
+ {
+   res.json(dbArticle)
+ })
+ .catch(function(err){
+   console.log(err);
+ })
+ });
+
  module.exports = router;

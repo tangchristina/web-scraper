@@ -1,11 +1,11 @@
 $(document).ready(function () {
     console.log("app.js is linked");
-    // event handler for deleting a note
+    // event handler for deleting a saved article
     $(".delete-btn").click(function (event) {
         event.preventDefault();
         const id = $(this).attr("data");
         $.ajax(`/remove/${id}`, {
-            type: "PUT"
+            type: "DELETE"
         }).then(function(){
             location.reload();
         })
@@ -84,7 +84,7 @@ $(document).ready(function () {
           type: "PUT",
           data: { isSaved: {$get:true} }
         }).then(function() {
-            $().alert('close')
+            alert("Article Saved!!")
           // Reload the page to get the updated list
           location.reload();
         });
